@@ -32,12 +32,46 @@
                         <h3 class="modal-title">{{items[0].poolName!=''?'Edit':'Add'}} Application Pool:</h3>
                     </div>
                     <div class="modal-body">
-                        <ul>
+                        <!--<ul>
                             <li ng-repeat="item in items">
                                 <a ng-click="selected.item = item">{{ item.poolName }}</a>
                             </li>
                         </ul>
-                        Selected: <b>{{ selected.item.poolName }}</b>
+                        Selected: <b>{{ selected.item.poolName }}</b>-->
+                        <form role="form">
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="autoStart">Auto Start</label>
+            <select class="form-control" id="autoStart">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+        </div>
+        <div class="form-group col-xs-offset-3 col-xs-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name">
+        </div>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="frameworkVersion">Framework Version</label>
+            <select class="form-control" id="frameworkVersion">
+                <option value="">V4.0</option>
+                <option value="">No Managed Code</option>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <label for="identity">Identity</label>
+            <select class="form-control  input-sm" id="identity">
+                <option value="">LocalSystem</option>
+                <option value="">NetworkService</option>
+            </select>
+        </div>
+    </div>
+</form>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -52,3 +86,4 @@
 
     <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid" external-scopes="$scope" ui-grid-auto-resize></div>
 </div>
+
