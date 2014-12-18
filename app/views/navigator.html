@@ -34,10 +34,10 @@
         </li>
     </ul>-->
     <ul class="nav navbar-nav">
-        <li class="dropdown" dropdown ng-repeat="menu in menus" ng-class="{active: $state.includes('{{menu.state}}')}">
+        <li class="dropdown" dropdown ng-repeat="menu in menus" ng-class="{active: $state.includes('{{menu.state}}') || menu.state == currentState}">
             <a href class="dropdown-toggle" dropdown-toggle>{{menu.name}} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="item in menu.items" ui-sref-active="active"><a ui-sref="{{menu.state}}.{{item.href}}" ng-click="getCtrlScope().collapsed = true">{{item.label}}</a></li>
+                <li ng-repeat="item in menu.items" ui-sref-active="active"><a ui-sref="{{menu.state}}.{{item.href}}" ng-click="getCtrlScope().collapsed = true;getCtrlScope().currentState = menu.state;">{{item.label}}</a></li>
             </ul>    
         </li>
     </ul>
