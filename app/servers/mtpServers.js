@@ -5,7 +5,7 @@ angular.module('managementCenter.mtpServers', ['ngResource', 'managementCenter.c
         servicesConfig.forEach(function (service) {
             services.push({
                 name: service.name,
-                resource: $resource(service.url, null, {
+                resource: $resource(service.url + '/AppList', null, {
                     'get': {
                         isArray: true
                     }

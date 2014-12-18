@@ -1,8 +1,8 @@
-angular.module('managementCenter.iisController',[])
+angular.module('managementCenter.iisController',['managementCenter.iisServers'])
 .controller('AppPoolCtrl', 
-            ['$scope', '$modal', function($scope, $modal){
+            ['$scope', '$modal', 'iisServerList', function($scope, $modal, iisServerList){
                 $scope.serverHoldPlace = "Select Server";
-                $scope.serverNames = ['1','2'];
+                $scope.serverList = iisServerList;
                 $scope.open = function(type){
                     var items;
                     if(type=='Add'){
@@ -16,6 +16,9 @@ angular.module('managementCenter.iisController',[])
                         resolve:{
                             items: function(){
                                 return items;
+                            },
+                            serverList: function(){
+                                return iisServerList;
                             }
                         }
                     });
@@ -24,13 +27,38 @@ angular.module('managementCenter.iisController',[])
                 
             }])
 .controller('AppPoolEditCtrl',
-           ['$scope', '$modalInstance', 'items', function($scope, $modalInstance, items){
+           ['$scope', '$modalInstance', 'items', 'serverList', function($scope, $modalInstance, items, serverList){
+               $scope.serverList = serverList;
                $scope.items = items;
                $scope.selected = {
                    item: null
                };
+               
+               $scope.formData = {};
                $scope.ok = function(){
-                   $modalInstance.close();
+                   var selectedSevers = $scope.formData.serverName
+                   for(var serverName in selectedSevers) {
+                       if($scope.formData.serverName.hasOwnProperty(serverName) && selectedSevers[serverName]){
+                           serverList.forEach(function(server){
+                              if(server.name == serverName){
+                                  var pool = new server.pool({
+                                      AutoStart: $scope.formData.autoStart,
+                                      Name: $scope.formData.name,
+                                      IdentityType: $scope.formData.identity,
+                                      RuntimeVersion: $scope.formData.frameworkVersion,
+                                      UserName: $scope.formData.userName,
+                                      Password: $scope.formData.password,
+                                      PipelineMode: $scope.formData.pipeMode
+                                  });
+                
+                                  pool.$add();
+                                  var a = 1;
+                              } 
+                           });
+                       }
+                   }
+                   //alert($scope.formData.name);
+                   //$modalInstance.close();
                };
                
                $scope.cancel = function(){

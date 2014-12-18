@@ -2,7 +2,7 @@
     <div class="row content" >
         <div class="col-xs-3">
             <label>Server:</label>
-            <select class="form-control" ng-model="serverName" ng-options="name for name in serverNames">
+            <select class="form-control" ng-model="serverName" ng-options="server.name for server in serverList">
                 <option value=""></option>
             </select>
         </div>
@@ -50,26 +50,26 @@
             </div>-->
             <div class="col-sm-9">
                 <label class="radio-inline">
-                    <input type="radio" name="serverName"> True
+                    <input type="radio" name="serverName" value="true" ng-model="formData.autoStart"> True
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="serverName"> False
+                    <input type="radio" name="serverName" value="false" ng-model="formData.autoStart"> False
                 </label>
             </div>
         </div>
         <div class="form-group ">
             <label for="name" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-9" style="padding-right:40px">
-            <input type="text" class="form-control" id="name" placeholder="Enter name">
+            <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="formData.name">
             </div>
         </div>
 
         <div class="form-group">
             <label for="frameworkVersion" class="col-sm-3 control-label">Framework Version</label>
             <div class="col-sm-9" style="padding-right:40px">
-            <select class="form-control" id="frameworkVersion">
-                <option value="">V4.0</option>
-                <option value="">No Managed Code</option>
+            <select class="form-control" id="frameworkVersion" ng-model="formData.frameworkVersion">
+                <option value="1">V4.0</option>
+                <option value="2">No Managed Code</option>
             </select>
             </div>
         </div>
@@ -78,9 +78,9 @@
             <label for="identity" class="col-sm-3 control-label">Identity</label>
             <div class="col-sm-9" style="padding-right:40px">
             <!--<select class="form-control  input-sm" id="identity">-->
-            <select class="form-control" id="identity">
-                <option value="">LocalSystem</option>
-                <option value="">NetworkService</option>
+            <select class="form-control" id="identity" ng-model="formData.identity">
+                <option value="0">LocalSystem</option>
+                <option value="2">NetworkService</option>
             </select>
             </div>
         </div>
@@ -88,23 +88,23 @@
         <div class="form-group">
             <label for="userName" class="col-sm-3 control-label">User Name</label>
             <div class="col-sm-9" style="padding-right:40px">
-                <input type="text" class="form-control" id="userName" placeholder="Enter user name">
+                <input type="text" class="form-control" id="userName" placeholder="Enter user name" ng-model="formData.userName">
             </div>
         </div>
     
         <div class="form-group">
             <label for="password" class="col-sm-3 control-label">Password</label>
             <div class="col-sm-9" style="padding-right:40px">
-                <input type="text" class="form-control" id="password" placeholder="Enter password">
+                <input type="text" class="form-control" id="password" placeholder="Enter password" ng-model="formData.password">
             </div>
         </div>
     
         <div class="form-group">
             <label for="pipeMode" class="col-sm-3 control-label">Pipe Mode</label>
             <div class="col-sm-9" style="padding-right:40px">
-            <select class="form-control" id="pipeMode">
-                <option value="">Integrated</option>
-                <option value="">Classic</option>
+            <select class="form-control" id="pipeMode" ng-model="formData.pipeMode">
+                <option value="0">Integrated</option>
+                <option value="1">Classic</option>
             </select>
             </div>
         </div>
@@ -112,13 +112,9 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">Server Name</label>
             <div class="col-sm-9" style="padding-right:40px">
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="serverName"> DEV84
+                <label class="checkbox-inline" ng-repeat="server in serverList">
+                    <input type="checkbox" name="serverName" ng-model="formData.serverName[server.name]"> {{server.name}}
                 </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="serverName"> GDEV61
-                </label>
-            </div>
         </div>
 
 </form>
@@ -137,88 +133,5 @@
     <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid" external-scopes="$scope" ui-grid-auto-resize></div>
 </div>
 
-<form class="form-horizontal" role="form">
 
-        <div class="form-group">
-            <label for="autoStart" class="col-sm-3 control-label">Auto Start</label>
-            <!--<div class="col-sm-9">
-            <select class="form-control" id="autoStart">
-                <option value="true">True</option>
-                <option value="false">False</option>
-            </select>
-            </div>-->
-            <div class="col-sm-9">
-                <label class="radio-inline">
-                    <input type="radio" name="serverName"> True
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="serverName"> False
-                </label>
-            </div>
-        </div>
-        <div class="form-group ">
-            <label for="name" class="col-sm-3 control-label">Name</label>
-            <div class="col-sm-9" style="padding-right:40px">
-            <input type="text" class="form-control" id="name" placeholder="Enter name">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="frameworkVersion" class="col-sm-3 control-label">Framework Version</label>
-            <div class="col-sm-9" style="padding-right:40px">
-            <select class="form-control" id="frameworkVersion">
-                <option value="">V4.0</option>
-                <option value="">No Managed Code</option>
-            </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="identity" class="col-sm-3 control-label">Identity</label>
-            <div class="col-sm-9" style="padding-right:40px">
-            <!--<select class="form-control  input-sm" id="identity">-->
-            <select class="form-control" id="identity">
-                <option value="">LocalSystem</option>
-                <option value="">NetworkService</option>
-            </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="userName" class="col-sm-3 control-label">User Name</label>
-            <div class="col-sm-9" style="padding-right:40px">
-                <input type="text" class="form-control" id="userName" placeholder="Enter user name">
-            </div>
-        </div>
-    
-        <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-9" style="padding-right:40px">
-                <input type="text" class="form-control" id="password" placeholder="Enter password">
-            </div>
-        </div>
-    
-        <div class="form-group">
-            <label for="pipeMode" class="col-sm-3 control-label">Pipe Mode</label>
-            <div class="col-sm-9" style="padding-right:40px">
-            <select class="form-control" id="pipeMode">
-                <option value="">Integrated</option>
-                <option value="">Classic</option>
-            </select>
-            </div>
-        </div>
-    
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Server Name</label>
-            <div class="col-sm-9" style="padding-right:40px">
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="serverName"> DEV84
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="serverName"> GDEV61
-                </label>
-            </div>
-        </div>
-
-</form>
 
