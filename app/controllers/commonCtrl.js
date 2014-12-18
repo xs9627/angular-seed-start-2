@@ -29,10 +29,11 @@ angular.module('managementCenter.commonCtrl', [])
 }])
 .controller('navbarController',['$scope', function($scope){
     $scope.collapsed = true;
+    $scope.currentState = '';
     $scope.getCtrlScope = function() {
          return $scope;   
     }
-    $scope.menus = [{"name":"IIS Management", "state" : "IIS", "items" : [{"label" : "Application Pool", "href" : "view2"}]}
+    $scope.menus = [{"name":"IIS Management", "state" : "IIS", "items" : [{"label" : "Application Pool", "href" : "ApplicationPool"}]}
                    ,{"name" : "MTP", "state" : "MTP", "items" : [{"label" : "Application Manage", "href" : "ApplicationManage"},
                                                                  {"label" : "Application Deploy", "href" : "empty({temp:1})"},
                                                                  {"label" : "Manage Config", "href" : "empty({temp:2})"},

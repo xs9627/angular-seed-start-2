@@ -17,7 +17,7 @@ angular.module('managementCenter', [
   }
 ]).config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("MTP");
+        $urlRouterProvider.otherwise("IIS/ApplicationPool");
         $stateProvider.state("MTP", {
             url: '/MTP',
             template: '<div ui-view class="container">'
@@ -29,15 +29,18 @@ angular.module('managementCenter', [
             controller: 'AppMgmt'
         }).state("MTP.empty",{
             url:'/empty/:temp',
-            templateUrl:''
+            template: '<div><p>Coming soon</p></div>'
         }).state("IIS", {
             url: "/IIS",
             template: '<div ui-view class="container">'
         })
-        .state("IIS.view2", {
+        .state("IIS.ApplicationPool", {
             url: '/ApplicationPool',
             templateUrl: 'views/IIS/applicationPool.html',
             controller: 'AppPoolCtrl'
+        }).state("Error",{
+            url: '/Error',
+            template: '<div><p>Page not found</p></div>'
         })
     }
 ]);
