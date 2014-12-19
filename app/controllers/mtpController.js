@@ -85,38 +85,21 @@ angular.module('managementCenter.mtpController',['ui.utils', 'ui.grid', 'ui.grid
         }
 
         function getData(service) {
-            if (service.name == 'WXMIS008') {
-                $http.get('data/wxmis008_data.json').success(function (data) {
-                    if ($scope.gridOptions.data == undefined) {
-                        $scope.gridOptions.data = [];
-                    }
-                    data.forEach(function (app) {
-                        $scope.gridOptions.data.push({
-                            Server: app.ServerName,
-                            ApplicationName: app.Name,
-                            Status: app.Status,
-                            EnabledProcessors: findActiveProcessor(app.Processors)
+            service.resource.get({}, function (appList) {
+                console.log(appList);
+                if ($scope.gridOptions.data == undefined) {
+                    $scope.gridOptions.data = [];
+                }
+                appList.forEach(function (app) {
+                    $scope.gridOptions.data.push({
+                        Server: app.ServerName,
+                        ApplicationName: app.Name,
+                        Status: app.Status,
+                        EnabledProcessors: findActiveProcessor(app.Processors)
 
-                        });
                     });
                 });
-            } else {
-                service.resource.get({}, function (appList) {
-                    console.log(appList);
-                    if ($scope.gridOptions.data == undefined) {
-                        $scope.gridOptions.data = [];
-                    }
-                    appList.forEach(function (app) {
-                        $scope.gridOptions.data.push({
-                            Server: app.ServerName,
-                            ApplicationName: app.Name,
-                            Status: app.Status,
-                            EnabledProcessors: findActiveProcessor(app.Processors)
-
-                        });
-                    });
-                });
-            }
+            });
         }
 
         function findActiveProcessor(processList) {
